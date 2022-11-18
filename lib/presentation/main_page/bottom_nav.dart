@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_sample/core/colors/colors.dart';
+import 'package:netflix_sample/core/colors.dart';
 
 ValueNotifier<int> indexChangeNotifier = ValueNotifier(0);
 

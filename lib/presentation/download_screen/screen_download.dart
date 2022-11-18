@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:netflix_sample/core/colors/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix_sample/application/downloads/downloads_bloc.dart';
+import 'package:netflix_sample/core/colors.dart';
 import 'package:netflix_sample/core/constants.dart';
 import 'package:netflix_sample/presentation/widgets/app_bar_widget.dart';
 
@@ -35,17 +37,17 @@ class ScreenDownload extends StatelessWidget {
 }
 
 class Section2 extends StatelessWidget {
-  Section2({super.key});
-
-  final _imageList = [
-    'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg',
-    'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/vUUqzWa2LnHIVqkaKVlVGkVcZIW.jpg',
-    'https://www.themoviedb.org/t/p/w220_and_h330_face/xf9wuDcqlUPWABZNeDKPbZUjWx0.jpg',
-  ];
+  const Section2({super.key});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      BlocProvider.of<DownloadsBloc>(context).add(
+        const DownloadsEvent.getDownloadsImages(),
+      );
+    });
     final Size size = MediaQuery.of(context).size;
+
     return Column(
       children: [
         const Text(
@@ -66,52 +68,61 @@ class Section2 extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        SizedBox(
-          width: size.width,
-          height: size.width,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey.withOpacity(
-                  0.3,
-                ),
-                radius: size.width * 0.35,
+        BlocBuilder<DownloadsBloc, DownloadsState>(
+          builder: (context, state) {
+            return SizedBox(
+              width: size.width,
+              height: size.width,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  state.isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : CircleAvatar(
+                          backgroundColor: Colors.grey.withOpacity(
+                            0.3,
+                          ),
+                          radius: size.width * 0.35,
+                        ),
+                  DownloadsImageWidget(
+                    size: Size(
+                      size.width * 0.5,
+                      size.width * 0.6,
+                    ),
+                    imageList:
+                        '$imageappendUrl${state.downloads[0].posterPath}',
+                    margin: const EdgeInsets.only(
+                      left: 170,
+                      top: 25,
+                    ),
+                    angle: 20,
+                  ),
+                  DownloadsImageWidget(
+                    size: Size(
+                      size.width * 0.5,
+                      size.width * 0.6,
+                    ),
+                    imageList:
+                        '$imageappendUrl${state.downloads[1].posterPath}',
+                    margin: const EdgeInsets.only(right: 170, top: 20),
+                    angle: -20,
+                  ),
+                  DownloadsImageWidget(
+                    size: Size(
+                      size.width * 0.55,
+                      size.width * 0.75,
+                    ),
+                    imageList:
+                        '$imageappendUrl${state.downloads[2].posterPath}',
+                    margin: const EdgeInsets.only(
+                      top: 25,
+                      bottom: 10,
+                    ),
+                  ),
+                ],
               ),
-              DownloadsImageWidget(
-                size: Size(
-                  size.width * 0.5,
-                  size.width * 0.6,
-                ),
-                imageList: _imageList[2],
-                margin: const EdgeInsets.only(
-                  left: 170,
-                  top: 25,
-                ),
-                angle: 20,
-              ),
-              DownloadsImageWidget(
-                size: Size(
-                  size.width * 0.5,
-                  size.width * 0.6,
-                ),
-                imageList: _imageList[1],
-                margin: const EdgeInsets.only(right: 170, top: 20),
-                angle: -20,
-              ),
-              DownloadsImageWidget(
-                size: Size(
-                  size.width * 0.55,
-                  size.width * 0.75,
-                ),
-                imageList: _imageList[0],
-                margin: const EdgeInsets.only(
-                  top: 25,
-                  bottom: 10,
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ],
     );

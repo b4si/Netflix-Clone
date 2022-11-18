@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_sample/core/colors/colors.dart';
+import 'package:netflix_sample/core/colors.dart';
 import 'package:netflix_sample/core/constants.dart';
 import 'package:netflix_sample/presentation/search/title.dart';
 
