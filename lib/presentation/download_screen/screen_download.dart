@@ -86,8 +86,8 @@ class Section2 extends StatelessWidget {
                         ),
                   DownloadsImageWidget(
                     size: Size(
-                      size.width * 0.5,
-                      size.width * 0.6,
+                      size.width * 0.37,
+                      size.height * 0.26,
                     ),
                     imageList:
                         '$imageappendUrl${state.downloads[0].posterPath}',
@@ -95,22 +95,22 @@ class Section2 extends StatelessWidget {
                       left: 170,
                       top: 25,
                     ),
-                    angle: 20,
+                    angle: 17,
                   ),
                   DownloadsImageWidget(
                     size: Size(
-                      size.width * 0.5,
-                      size.width * 0.6,
+                      size.width * 0.37,
+                      size.height * 0.26,
                     ),
                     imageList:
                         '$imageappendUrl${state.downloads[1].posterPath}',
                     margin: const EdgeInsets.only(right: 170, top: 20),
-                    angle: -20,
+                    angle: -17,
                   ),
                   DownloadsImageWidget(
                     size: Size(
-                      size.width * 0.55,
-                      size.width * 0.75,
+                      size.width * 0.4,
+                      size.height * 0.30,
                     ),
                     imageList:
                         '$imageappendUrl${state.downloads[2].posterPath}',
@@ -227,11 +227,11 @@ class DownloadsImageWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           child: Container(
             width: size.width,
-            height: size.width,
+            height: size.height,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 image: NetworkImage(
                   imageList,
                 ),
