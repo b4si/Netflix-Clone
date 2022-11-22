@@ -4,14 +4,22 @@ import 'package:netflix_sample/core/constants.dart';
 import 'package:netflix_sample/presentation/home/screen_home.dart';
 
 class EveryoneWatchingWidget extends StatelessWidget {
+  final String posterPath;
+  final String movieName;
+  final String description;
+
   const EveryoneWatchingWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 400,
+      height: 420,
       // color: Colors.amber,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -21,11 +29,11 @@ class EveryoneWatchingWidget extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 200,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      'https://www.themoviedb.org/t/p/w533_and_h300_bestv2/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg',
+                      posterPath,
                     ),
                   ),
                 ),
@@ -56,11 +64,13 @@ class EveryoneWatchingWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                const SizedBox(
+                SizedBox(
                   width: 100,
                   child: Text(
-                    'LOST IN SPACE',
-                    style: TextStyle(
+                    movieName,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         letterSpacing: -2),
@@ -96,19 +106,28 @@ class EveryoneWatchingWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: const [
-                Text(
-                  'Lost in Space',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              children: [
+                SizedBox(
+                  width: size.width * 0.9,
+                  height: 30,
+                  child: Text(
+                    movieName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
                 ),
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
-              'This hit sitcom follows the merry misadventures if six 20-something pals as they navigate the pitfalls of work, life and love in 1990s Manhattan.',
-              style: TextStyle(
+              description,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
                 color: Colors.grey,
                 fontSize: 15,
               ),

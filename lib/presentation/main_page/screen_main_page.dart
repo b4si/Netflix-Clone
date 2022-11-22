@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_sample/core/colors.dart';
 import 'package:netflix_sample/presentation/download_screen/screen_download.dart';
-import 'package:netflix_sample/presentation/fast_laugh/fast_laugh_page.dart';
+import 'package:netflix_sample/presentation/fast_laugh/screen_fast_laugh.dart';
 import 'package:netflix_sample/presentation/home/screen_home.dart';
 import 'package:netflix_sample/presentation/main_page/bottom_nav.dart';
-import 'package:netflix_sample/presentation/new_and_hot/new_and_hot.dart';
+import 'package:netflix_sample/presentation/new_and_hot/screen_new_and_hot.dart';
 import 'package:netflix_sample/presentation/search/search_screen.dart';
 
 class ScreenMainPage extends StatelessWidget {

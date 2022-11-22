@@ -4,9 +4,22 @@ import 'package:netflix_sample/core/constants.dart';
 import 'package:netflix_sample/presentation/home/screen_home.dart';
 
 class ComingSoonWidget extends StatelessWidget {
+  final String id;
+  final String month;
+  final String day;
+  final String posterPath;
+  final String movieName;
+  final String description;
+
   const ComingSoonWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.id,
+    required this.month,
+    required this.day,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +36,14 @@ class ComingSoonWidget extends StatelessWidget {
                 height: 450,
                 color: Colors.black,
                 child: Column(
-                  children: const [
+                  children: [
                     Text(
-                      'FEB',
-                      style: TextStyle(fontSize: 22, color: Colors.grey),
+                      month,
+                      style: const TextStyle(fontSize: 22, color: Colors.grey),
                     ),
                     Text(
-                      '11',
-                      style: TextStyle(
+                      day,
+                      style: const TextStyle(
                         fontSize: 32,
                         letterSpacing: 4,
                         fontWeight: FontWeight.bold,
@@ -47,14 +60,12 @@ class ComingSoonWidget extends StatelessWidget {
               Stack(
                 children: [
                   Container(
-                    width: size.width * 0.78,
+                    width: size.width * 0.77,
                     height: 180,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                          'https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mvyERNa0oNsBjbHqn5qSGMHk2FM.jpg',
-                        ),
+                        image: NetworkImage(posterPath),
                       ),
                     ),
                   ),
@@ -81,56 +92,64 @@ class ComingSoonWidget extends StatelessWidget {
               ),
               kHeight,
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text(
-                    'TALL GIRL 2',
-                    style: TextStyle(
-                      letterSpacing: -5,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+                  SizedBox(
+                    width: size.width * 0.50,
+                    height: 45,
+                    child: Text(
+                      movieName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: const TextStyle(
+                        letterSpacing: -3,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  SizedBox(
-                    width: size.width * 0.180,
+                  const CustomButtonWidget(
+                    icon: Icons.all_out_sharp,
+                    title: 'Remind me',
+                    iconSize: 30,
+                    titleSize: 12,
+                    letterSpeacing: 0,
                   ),
-                  Row(
-                    children: const [
-                      CustomButtonWidget(
-                        icon: Icons.all_out_sharp,
-                        title: 'Remind me',
-                        iconSize: 30,
-                        titleSize: 12,
-                        letterSpeacing: 0,
-                      ),
-                      SizedBox(
-                        width: 7,
-                      ),
-                      CustomButtonWidget(
-                        icon: Icons.info,
-                        title: 'Info',
-                        iconSize: 30,
-                        titleSize: 12,
-                      ),
-                    ],
+                  const SizedBox(
+                    width: 7,
+                  ),
+                  const CustomButtonWidget(
+                    icon: Icons.info,
+                    title: 'Info',
+                    iconSize: 30,
+                    titleSize: 12,
                   ),
                 ],
               ),
               kHeight,
-              const Text('Coming on Friday'),
-              kHeight,
-              const Text(
-                "Tall Girl 2",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Text('Coming on $day'),
               kHeight,
               SizedBox(
+                width: size.width * 0.80,
+                height: 35,
+                child: Text(
+                  movieName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(
                 width: size.width * 0.75,
-                child: const Text(
-                  '''Landing the lead in the School musical is a dream come true for Jodi, until the pressure sends her confidence -- and her relationship -- into a into a tailspin''',
-                  style: TextStyle(color: Colors.grey, fontSize: 17),
+                child: Text(
+                  description,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.grey, fontSize: 17),
                 ),
               )
             ],
