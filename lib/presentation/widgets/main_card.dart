@@ -1,9 +1,12 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_sample/core/constants.dart';
 
 class MainCard2 extends StatelessWidget {
+  final String imageUrl;
   const MainCard2({
     Key? key,
+    required this.imageUrl,
   }) : super(key: key);
 
   @override
@@ -13,10 +16,10 @@ class MainCard2 extends StatelessWidget {
       height: 200,
       decoration: BoxDecoration(
         borderRadius: kRadius15,
-        image: const DecorationImage(
+        image: DecorationImage(
           fit: BoxFit.cover,
           image: NetworkImage(
-            'https://www.themoviedb.org/t/p/w220_and_h330_face/xf9wuDcqlUPWABZNeDKPbZUjWx0.jpg',
+            imageUrl,
           ),
         ),
       ),

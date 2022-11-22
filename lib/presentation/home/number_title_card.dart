@@ -1,13 +1,17 @@
 import 'package:bordered_text/bordered_text.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_sample/core/constants.dart';
-import 'package:netflix_sample/main.dart';
 import 'main_title.dart';
 
 class NumberTitleCardWidget extends StatelessWidget {
-  const NumberTitleCardWidget({Key? key, required this.title})
-      : super(key: key);
+  const NumberTitleCardWidget({
+    Key? key,
+    required this.title,
+    required this.postersList,
+  }) : super(key: key);
   final String title;
+  final List<String> postersList;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,13 @@ class NumberTitleCardWidget extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8),
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: List.generate(10, (index) => NumberCard(index: index)),
+              children: List.generate(
+                postersList.sublist(0, 10).length,
+                (index) => NumberCard(
+                  index: index,
+                  imageUrl: postersList[index],
+                ),
+              ),
             ),
           ),
         ),
@@ -38,8 +48,13 @@ class NumberTitleCardWidget extends StatelessWidget {
 }
 
 class NumberCard extends StatelessWidget {
-  const NumberCard({Key? key, required this.index}) : super(key: key);
+  const NumberCard({
+    Key? key,
+    required this.index,
+    required this.imageUrl,
+  }) : super(key: key);
   final int index;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +62,7 @@ class NumberCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            Container(
+            SizedBox(
               width: 190,
               height: 200,
               child: Stack(
@@ -59,10 +74,10 @@ class NumberCard extends StatelessWidget {
                       height: 200,
                       decoration: BoxDecoration(
                         borderRadius: kRadius15,
-                        image: const DecorationImage(
+                        image: DecorationImage(
                           fit: BoxFit.cover,
                           image: NetworkImage(
-                            'https://www.themoviedb.org/t/p/w220_and_h330_face/xf9wuDcqlUPWABZNeDKPbZUjWx0.jpg',
+                            imageUrl,
                           ),
                         ),
                       ),
@@ -97,6 +112,3 @@ class NumberCard extends StatelessWidget {
     );
   }
 }
-
-// Stack(
-//
